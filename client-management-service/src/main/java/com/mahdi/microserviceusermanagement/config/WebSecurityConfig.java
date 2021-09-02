@@ -32,13 +32,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/error", "/service/**").permitAll()
+                .antMatchers("/resources/**", "/error", "/user-service/**").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .logout().permitAll()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/service/logout", "POST"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user-service/logout", "POST"))
                 .and()
-                .formLogin().loginPage("/service/login")
+                .formLogin().loginPage("/user-service/login")
                 .and()
                 .httpBasic().and().csrf().disable();
     }

@@ -33,18 +33,18 @@ public class UserController {
 
     @Value("${spring.application.name}")
     private String serviceId;
-    @GetMapping("/service/services")
+    @GetMapping("/user-service/services")
     public ResponseEntity<?> getServices() {
         return new ResponseEntity<>(discoveryClient.getServices(), HttpStatus.OK);
     }
 
 
-    @GetMapping("/service/instances")
+    @GetMapping("/user-service/instances")
     public ResponseEntity<?> getInstances() {
         return new ResponseEntity<>(discoveryClient.getInstances(serviceId), HttpStatus.OK);
     }
 
-    @GetMapping("/service/port")
+    @GetMapping("/user-service/port")
     public ResponseEntity<String> getPort() {
         String response = "port is open on: " + env.getProperty("local.server.port");
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -52,7 +52,7 @@ public class UserController {
 
 
 
-    @PostMapping("/service/registration")
+    @PostMapping("/user-service/registration")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         User userx = userService.findByUsername(user.getUsername());
         if (userx != null) {
@@ -62,7 +62,7 @@ public class UserController {
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
-    @GetMapping("/service/login")
+    @GetMapping("/user-service/login")
     public ResponseEntity<?> getUser(Principal principal) {
         //Principal principal = request.getUserPrincipal();
         if (principal == null || principal.getName() == null) {
@@ -73,14 +73,13 @@ public class UserController {
         return ResponseEntity.ok(userService.findByUsername(principal.getName()));
     }
 
-
     /* takes list of user id and return list of users */
-    @PostMapping("/service/names")
+    @PostMapping("/user-service/names")
     public ResponseEntity<?> getNamesOfUsers(@RequestBody List<Long> idList){
         return ResponseEntity.ok(userService.findUsers(idList));
     }
 
-    @GetMapping("/service/test")
+    @GetMapping("/user-service/test")
     public ResponseEntity<?> test() {
         return ResponseEntity.ok("its working...");
     }
