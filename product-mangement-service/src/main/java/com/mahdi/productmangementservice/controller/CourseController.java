@@ -31,7 +31,7 @@ public class CourseController {
       @Value("${spring.application.name}")
       private String serviceId;
 
-      @GetMapping("/service/user/{userId}")
+      @GetMapping("/course-service/user/{userId}")
       public ResponseEntity<?> getTransactionOfUser (@PathVariable Long userId) {
              Course course = courseService.findCourseById(userId);
              if(course == null) {
@@ -39,16 +39,16 @@ public class CourseController {
              }
              return new ResponseEntity<>(course, HttpStatus.OK);
       }
-      @GetMapping("/service/listInstances")
+      @GetMapping("/course-service/listInstances")
       public ResponseEntity<?> findAllInstances() {
           return new ResponseEntity<>(discoveryClient.getInstances(serviceId), HttpStatus.OK);
       }
-    @GetMapping("/service/port")
+    @GetMapping("/course-service/port")
     public ResponseEntity<?> getServicePort() {
         return new ResponseEntity<>("Course service is running on: "+ env.getProperty("local.server.port"), HttpStatus.OK);
     }
 
-    @GetMapping("/service/all")
+    @GetMapping("/course-service/all")
     public ResponseEntity<?> findAllCourses () {
         List<Course> courses = courseService.allCourses();
         if(courses.size() == 0) {
@@ -57,7 +57,7 @@ public class CourseController {
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
-    @PostMapping("/service/enroll")
+    @PostMapping("/course-service/enroll")
     public ResponseEntity<?> saveTransaction (@RequestBody Transaction transaction) {
           transaction.setDateOfIssue(LocalDateTime.now());
             transaction.setCourse(courseService.findCourseById(transaction.getCourse().getId()));
@@ -66,7 +66,7 @@ public class CourseController {
         return new ResponseEntity<>(transactionSaved, HttpStatus.CREATED);
     }
 
-    @GetMapping("/service/course/{courseId}")
+    @GetMapping("/course-service/course/{courseId}")
     public ResponseEntity<?> findAllCustomersEnrolledCourse(@PathVariable Long courseId) {
           List<Transaction> courseTransactions = courseService.findTransactionsOfCourse(courseId);
           if(CollectionUtils.isEmpty(courseTransactions)) {
