@@ -16,6 +16,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 ext {
@@ -33,6 +34,9 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation("io.github.resilience4j:resilience4j-spring-boot2:1.7.0")
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.springframework.boot:spring-boot-starter-aop')
 }
 
 dependencyManagement {
@@ -43,4 +47,7 @@ dependencyManagement {
 
 test {
 	useJUnitPlatform()
+}
+dependencies {
+
 }
