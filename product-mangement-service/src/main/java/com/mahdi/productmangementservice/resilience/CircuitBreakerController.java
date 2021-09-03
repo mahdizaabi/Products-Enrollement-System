@@ -2,6 +2,7 @@ package com.mahdi.productmangementservice.resilience;
 
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,10 @@ if not it switch back to closee.
 ____ __ ____ closeed: closed state, the microservice will be allways called
 ___ |______ open state: No request are passed to the microservice
 ___ \_____  semi-open state when the circuit breaker let only on portion of request to be passed to the microservice
+
+@RateLimiter: allow only a certain number of call to the microservice
+in a certain amount of time:#rate limiter: allow only 2 requests in 10 seconds
+
 */
 
 @RestController
@@ -36,7 +41,8 @@ public class CircuitBreakerController {
 
     @GetMapping("/sample-api")
     //@Retry(name = "sample-api", fallbackMethod = "fallbackmethod")
-    @CircuitBreaker(name = "default", fallbackMethod = "fallbackmethod")
+    //@CircuitBreaker(name = "default", fallbackMethod = "fallbackmethod")
+    @RateLimiter(name="default")
     public String sampleApi() {
         logger.info("Sample api call received");
         ResponseEntity<String> response = new RestTemplate().getForEntity("http://localhost:8080/okokok", String.class);
