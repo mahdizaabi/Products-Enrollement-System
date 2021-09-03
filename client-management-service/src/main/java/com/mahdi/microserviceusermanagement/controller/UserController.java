@@ -1,5 +1,6 @@
 package com.mahdi.microserviceusermanagement.controller;
 
+import com.mahdi.microserviceusermanagement.model.Xer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 
@@ -82,5 +83,14 @@ public class UserController {
     @GetMapping("/user-service/test")
     public ResponseEntity<?> test() {
         return ResponseEntity.ok("its working...");
+    }
+
+    @PostMapping("/user-service/test-rest")
+    public ResponseEntity<Xer> test(@RequestBody Xer xer) {
+        System.out.println(xer.toString());
+        xer.setName("changed");
+        xer.getMylistx().add("xxxxxxxxxxxxxxxxxxxxxxxx");
+
+        return new ResponseEntity<>(xer, HttpStatus.OK);
     }
 }

@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
     }
 
 
-    public List<User> findUsers(List<Long> idList){
+    public List<String> findUsers(List<Long> idList){
         return userRepository.findByIdList(idList);
     }
 }

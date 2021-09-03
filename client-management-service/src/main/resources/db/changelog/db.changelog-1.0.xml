@@ -31,4 +31,13 @@
             ALTER TABLE user DROP COLUMN email;
         </rollback>
     </changeSet>
+
+    <changeSet id="3" author="mahdi">
+        <sql>
+            INSERT INTO user (username, password, name, role, email) VALUES('zmahdi', 'test', 'mahdi', 'user', 'madi@gmail.de')
+        </sql>
+        <rollback>
+            ALTER TABLE user DROP COLUMN email;
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

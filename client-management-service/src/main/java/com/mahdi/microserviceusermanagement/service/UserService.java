@@ -8,5 +8,5 @@ public interface UserService {
     User save(User user);
     User findByUsername(String username);
 
-    List<User> findUsers(List<Long> idList);
+    List<String> findUsers(List<Long> idList);
 }

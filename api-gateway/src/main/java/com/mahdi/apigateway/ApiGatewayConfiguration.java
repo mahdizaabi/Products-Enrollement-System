@@ -20,6 +20,8 @@ public class ApiGatewayConfiguration {
 
                 .route(p -> p.path("/course-service/**").uri("lb://course-service"))
                 .route(p -> p.path("/user-service/**").uri("lb://user-service"))
+                .route(p -> p.path("/course-service-feign/**").uri("lb://course-service"))
+
                 .route(p -> p.path("/user-service-new/**").filters(f -> f.rewritePath("/user-service-new/(?<segment>.*)"
                         , "/currency-conversion-feign/${segment}"))
                         .uri("lb://currency-conversion"))
